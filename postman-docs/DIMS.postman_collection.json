@@ -1,0 +1,545 @@
+{
+	"info": {
+		"_postman_id": "4497312b-2a35-4038-8b5a-8e727735b2fc",
+		"name": "DIMS",
+		"description": "**O UIoT DIMS é uma plataforma de middleware aberta para Internet das Coisas (IoT), projetada para gerenciar e armazenar dados provenientes de dispositivos IoT. Mantida pela Universal Internet of Things e pela Universidade de Brasília, o DIMS atua como uma camada entre aplicativos/dispositivos IoT e o sistema de armazenamento.**\n\n## **Visão Geral**\n\n**O DIMS (Data Interface Management System) é um componente do UIoT, desenvolvido para gerenciar a interface de dados entre dispositivos IoT e o sistema de armazenamento. Ele recebe dados de sensores IoT e os armazena em um banco de dados, assegurando persistência e permitindo análises futuras.**\n\n<img src=\"https://lh7-us.googleusercontent.com/CkSLcttFGRGPLWWIsKSDBBX15e4kJ-glvuchDF177qt2-jQzHeqdtxEW75NHk2DgVO8T1u2d93DxpyuTLFDia5hjd1G0RGRloUBAVEDs5IFRwCChTRXxJdswxyJwinHUpPRyild9-ndtWaMjkYuwguw\">\n\n**Figura 1 - Arquitetura do DIMS**\n\n### **Funcionalidades Principais do DIMS:**\n\n- **Recebimento de dados em tempo real de sensores IoT.**\n- **Armazenamento seguro e confiável dos dados em um banco de dados centralizado.**\n- **Fornecimento de uma interface padronizada para integração com dispositivos IoT.**\n- **Suporte para análises posteriores e visualizações de dados.**\n- **Escalabilidade para lidar com grandes volumes de dados de dispositivos IoT.**\n    \n\n**O DIMS é estruturado em três componentes principais:**\n\n- **Cliente: Representa os dispositivos físicos de hardware, como Arduino, Raspberry Pi, etc.**\n- **Serviços: Correspondem aos diferentes tipos de sensores presentes nos dispositivos físicos.**\n- **Dados: Consiste nos dados gerados pelos sensores dos dispositivos físicos.**\n    \n\n**Essa divisão simplifica a compreensão da plataforma e dos fluxos de dados.**\n\n## **Configuração e Utilização do DIMS**\n\n**Para começar a utilizar o DIMS, é necessário entender os pontos de acesso e os passos iniciais para o envio de dados.**\n\n### **Acesso aos Endpoints**\n\n- **Endpoint principal do DIMS:** [<b>https://dims.uiot.unb.br:8080</b>](http://dims.uiot.unb.br:8080)**.**\n- **Documentação Swagger da API:** [<b>https://dims.uiot.unb.br:8080/docs</b>](http://dims.uiot.unb.br:8080/docs)**.**\n    \n\n### **Cadastro de Cliente**\n\n**Para enviar dados ao DIMS, é preciso registrar um cliente via POST no endpoint** [<b>https://dims.uiot.unb.br:8080/client</b>](http://dims.uiot.unb.br:8080/client)**. Abaixo está um exemplo do corpo da requisição:**\n\n**Após o cadastro do cliente, é possível criar serviços associados a ele.**\n\n### **Cadastro de Serviço**\n\n**Cada cliente pode ter vários serviços diferentes. Para cadastrar um serviço, utilize o endpoint via POST** [<b>https://dims.uiot.unb.br:8080/service</b>](http://dims.uiot.unb.br:8080/service) **com o seguinte esquema:**\n\n**O chipset e o mac são referentes ao cliente, enquanto os demais parâmetros são relacionados às características do serviço.**\n\n### **Envio de Dados**\n\n**Após o cadastro do cliente e do serviço, é possível enviar dados ao DIMS utilizando o endpoint POST** [<b>https://dims.uiot.unb.br:8080/data</b>](http://dims.uiot.unb.br:8080/data)**. Abaixo está um exemplo do corpo da requisição:**\n\n**Os parâmetros chipset e mac são relacionados ao cliente, enquanto serviceNumber é relacionado ao serviço. O parâmetro de sensitive é relacionado a qual importância desse dado que está sendo enviado.**\n\n**Essas etapas permitem a integração e o envio eficiente de dados ao DIMS para posterior análise e utilização.**\n\n### **Listagem de Clientes, Serviços e Dados**\n\n**Para listar todos os clientes, serviços e dados, utilize o método GET nos seguintes endpoints, respectivamente:**\n\n- [<b>https://dims.uiot.unb.br:8080/list/client</b>](http://dims.uiot.unb.br:8080/list/client)\n- [<b>https://dims.uiot.unb.br:8080/list/service</b>](http://dims.uiot.unb.br:8080/list/service)\n- [<b>https://dims.uiot.unb.br:8080/list/data</b>](http://dims.uiot.unb.br:8080/list/data)\n    \n\n**Para acessar informações detalhadas sobre clientes, serviços e dados registrados, utilize os métodos GET nos seguintes endpoints:**\n\n#### **Client:**\n\n- **Listar por nome:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/client?name=HumidityCenter</b>](http://dims.uiot.unb.br:8080/list/client?name=HumidityCenter)\n- **Listar por canal:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/client?channel=IEEE808002.11b</b>](http://dims.uiot.unb.br:8080/list/client?channel=IEEE808002.11b)\n- **Listar por chipset:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/client?chipset=AMD</b>](http://dims.uiot.unb.br:8080/list/client?chipset=AMD) **790FX**\n- **Listar por endereço MAC:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/client?mac=FF:FF:FF:FF:FF</b>](http://dims.uiot.unb.br:8080/list/client?mac=FF:FF:FF:FF:FF)\n- **Listar uma quantidade específica dos últimos cadastrados:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/client?latest=10</b>](http://dims.uiot.unb.br:8080/list/client?latest=10)\n\n#### **Service:**\n\n- **Listar por nome:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/service?name=GetTemp</b>](http://dims.uiot.unb.br:8080/list/service?name=GetTemp)\n- **Listar por parâmetros:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/service?parameters=humidity</b>](http://dims.uiot.unb.br:8080/list/service?parameters=humidity)\n- **Listar por chipset:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/service?chipset=AMD</b>](http://dims.uiot.unb.br:8080/list/service?chipset=AMD) **790FX**\n- **Listar por endereço MAC:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/service?mac=FF:FF:FF:FF:FF</b>](http://dims.uiot.unb.br:8080/list/service?mac=FF:FF:FF:FF:FF)\n- **Listar uma quantidade específica dos últimos cadastrados:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/service?latest=10</b>](http://dims.uiot.unb.br:8080/list/service?latest=10)\n\n#### **Data:**\n\n- **Listar por sensibilidade:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/data?sensitive=1</b>](http://dims.uiot.unb.br:8080/list/data?sensitive=1)\n- **Listar por chipset:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/data?chipset=AMD</b>](http://dims.uiot.unb.br:8080/list/data?chipset=AMD) **790FX**\n- **Listar por endereço MAC:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/data?mac=FF:FF:FF:FF:FF</b>](http://dims.uiot.unb.br:8080/list/data?mac=FF:FF:FF:FF:FF)\n- **Listar por número do serviço:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/data?serviceNumber=3</b>](http://dims.uiot.unb.br:8080/list/data?serviceNumber=3)\n- **Listar por data:**\n    - **Exemplo:**\n        - [<b>https://dims.uiot.unb.br:8080/list/data?from=1995-09-07T10:40:52Z</b>](http://dims.uiot.unb.br:8080/list/data?from=1995-09-07T10:40:52Z)\n        - [<b>https://dims.uiot.unb.br:8080/list/data?until=1998-09-07T10:40:52Z</b>](http://dims.uiot.unb.br:8080/list/data?until=1998-09-07T10:40:52Z)\n        - [<b>https://dims.uiot.unb.br:8080/list/data?from=1995-09-07T10:40:52Z&amp;until=1998-09-07T10:40:52Z</b>](http://dims.uiot.unb.br:8080/list/data?from=1995-09-07T10:40:52Z&until=1998-09-07T10:40:52Z)\n- **Listar uma quantidade específica dos últimos cadastrados:**\n    - **Exemplo:** [<b>https://dims.uiot.unb.br:8080/list/data?latest=10</b>](http://dims.uiot.unb.br:8080/list/data?latest=10)\n\n**Esses parâmetros permitem filtrar os resultados para atender às necessidades específicas de consulta.**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14839151"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientTime\": \"2020-03-04T12:14:25\",\n  \"tags\": [\"example-tag\"],\n  \"name\": \"Raspberry PI\",\n  \"chipset\": \"AMD 790FX\",\n  \"mac\": \"FF:FF:FF:FF:FF:FF\",\n  \"serial\": \"C210\",\n  \"processor\": \"Intel I3\",\n  \"channel\": \"Ethernet\",\n  \"location\": \"-15.7757876:-48.077829\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/client",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client - filter name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client?name=Raspberry PI",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Raspberry PI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client - filter channel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client?channel=Ethernet",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							],
+							"query": [
+								{
+									"key": "channel",
+									"value": "Ethernet"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client - filter chipset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client?chipset=AMD 790FX",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							],
+							"query": [
+								{
+									"key": "chipset",
+									"value": "AMD 790FX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client - filter mac",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client?mac=FF:FF:FF:FF:FF:FF",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							],
+							"query": [
+								{
+									"key": "mac",
+									"value": "FF:FF:FF:FF:FF:FF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/client - filter latest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/client?latest=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"client"
+							],
+							"query": [
+								{
+									"key": "latest",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service",
+			"item": [
+				{
+					"name": "service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientTime\": 1000000000.1,\n  \"tags\": [\n    \"example-tag\"\n  ],\n  \"number\": 3,\n  \"chipset\": \"AMD 790FX\",\n  \"mac\": \"FF:FF:FF:FF:FF:FF\",\n  \"name\": \"Get temp\",\n  \"parameter\": \"temperature\",\n  \"unit\": \"°C\",\n  \"numeric\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/service",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service - filter name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service?name=Get temp",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Get temp"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service - filter parameters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service?parameters=humidity",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							],
+							"query": [
+								{
+									"key": "parameters",
+									"value": "humidity"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service - filter chipset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service?chipset=AMD 790FX",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							],
+							"query": [
+								{
+									"key": "chipset",
+									"value": "AMD 790FX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service - filter mac",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service?mac=FF:FF:FF:FF:FF:FF",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							],
+							"query": [
+								{
+									"key": "mac",
+									"value": "FF:FF:FF:FF:FF:FF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/service - filter latest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/service?latest=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"service"
+							],
+							"query": [
+								{
+									"key": "latest",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data",
+			"item": [
+				{
+					"name": "data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientTime\": 1000000000.1,\n  \"time\": \"2018-09-21T17:42:12.587934\",\n  \"tags\": [\n    \"example-tag\"\n  ],\n  \"sensitive\": 1,\n  \"chipset\": \"AMD 790FX\",\n  \"mac\": \"FF:FF:FF:FF:FF:FF\",\n  \"serviceNumber\": 3,\n  \"value\": [\n    \"20.2\",\n    \"30.0\"\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/data",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data - filter sensitive",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data?sensitive=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							],
+							"query": [
+								{
+									"key": "sensitive",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data - filter chipset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data?chipset=AMD 790FX",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							],
+							"query": [
+								{
+									"key": "chipset",
+									"value": "AMD 790FX"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data - filter mac",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data?mac=FF:FF:FF:FF:FF:FF",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							],
+							"query": [
+								{
+									"key": "mac",
+									"value": "FF:FF:FF:FF:FF:FF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data - filter serviceNumber",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data?serviceNumber=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							],
+							"query": [
+								{
+									"key": "serviceNumber",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list/data - filter data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/list/data?from=1995-09-07T10:40:52Z",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"list",
+								"data"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "1995-09-07T10:40:52Z"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://dims.uiot.redes.unb.br",
+			"type": "string"
+		}
+	]
+}
